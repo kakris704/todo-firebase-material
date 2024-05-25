@@ -5,4 +5,16 @@
 
 .todos {
     overflow: hidden;
+    justify-content: center;
+
+    .title-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .text-field-wrapper {
+        display: flex;
+        justify-content: center;
+    }
 }
