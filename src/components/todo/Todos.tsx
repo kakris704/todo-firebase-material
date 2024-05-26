@@ -1,8 +1,14 @@
-import { ModeEdit, Add, TaskAlt } from '@mui/icons-material'
-import { AppBar, IconButton, InputBase, Paper, Stack, Typography } from '@mui/material'
-import React from 'react'
+import { ModeEdit, Add, TaskAlt, MoreVert } from '@mui/icons-material'
+import { AppBar, Checkbox, IconButton, InputBase, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Paper, Stack, Typography } from '@mui/material'
+import React, { useState } from 'react'
 
 const Todos = () => {
+  const [checked, setChecked] = useState(false);
+
+  const handleChange = () => {
+    setChecked(prev => !prev)
+  }
+
   return (
     <div className='todos grid-item' style={{position:'relative'}}>
         <AppBar position="static" sx={{padding: '7px'}} color='primary'>
@@ -25,7 +31,7 @@ const Todos = () => {
                 sx={{height: '100%', width: '100%', '.MuiInputBase-input': {
                   height: '45px',
                   fontSize: '1.3rem',
-                  pl: '10px'
+                  pl: '15px'
                 }}}
               />
               <IconButton sx={{width:'40px', height:'40px', mr:'5px'}}>
@@ -33,8 +39,64 @@ const Todos = () => {
               </IconButton>
             </Stack>
           </Paper>
-          
         </div>
+
+        <List sx={{overflow:'auto'}}>
+          <ListSubheader>未完了</ListSubheader>
+          <ListItem
+            secondaryAction={
+              <IconButton>
+                <MoreVert />
+              </IconButton>
+            }
+          >
+            <ListItemIcon>
+              <Checkbox 
+                checked={checked}
+                onChange={handleChange}
+              />
+            </ListItemIcon>
+            <ListItemText>
+              <Typography variant='h6'>めしくう</Typography>
+            </ListItemText>
+          </ListItem>
+          <ListItem
+            secondaryAction={
+              <IconButton>
+                <MoreVert />
+              </IconButton>
+            }
+          >
+            <ListItemIcon>
+              <Checkbox 
+                checked={checked}
+                onChange={handleChange}
+              />
+            </ListItemIcon>
+            <ListItemText>
+              <Typography variant='h6'>めしくう</Typography>
+            </ListItemText>
+          </ListItem>
+          
+          <ListSubheader>完了済み</ListSubheader>
+          <ListItem
+            secondaryAction={
+              <IconButton>
+                <MoreVert />
+              </IconButton>
+            }
+          >
+            <ListItemIcon>
+              <Checkbox 
+                checked={checked}
+                onChange={handleChange}
+              />
+            </ListItemIcon>
+            <ListItemText>
+              <Typography variant='h6'>めしくう</Typography>
+            </ListItemText>
+          </ListItem>
+        </List>
         
     </div>
   )

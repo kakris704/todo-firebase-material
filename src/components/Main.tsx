@@ -15,11 +15,11 @@ const Main = () => {
 							<List />
 						</Grid>
 						<Divider orientation='vertical' />
-						<Grid item xs={6}>
+						<Grid item xs={7}>
 							<Todos />
 						</Grid>
 						<Divider orientation='vertical' />
-						<Grid item xs={3}>
+						<Grid item xs={2}>
 							<Detail />
 						</Grid>
 					</Grid>
