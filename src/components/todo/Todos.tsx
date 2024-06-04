@@ -1,6 +1,38 @@
 import { ModeEdit, Add, TaskAlt, MoreVert } from '@mui/icons-material'
-import { AppBar, Checkbox, IconButton, InputBase, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Paper, Stack, Typography } from '@mui/material'
+import { AppBar, Checkbox, IconButton, InputBase, List, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, ListSubheader, Paper, Stack, Typography } from '@mui/material'
 import React, { useState } from 'react'
+
+const TempItem = () => {
+  return (
+    <ListItem
+            secondaryAction={
+              <div style={{transition: '.2s ease-out'}}>
+              <IconButton>
+                <MoreVert />
+              </IconButton>
+              </div>
+            }
+            sx={{'&:hover .MuiListItemSecondaryAction-root': {
+              opacity: 1
+            },
+              '.MuiListItemSecondaryAction-root': {
+              opacity: 0
+            },
+              '&:hover': {
+                backgroundColor: '#f0f0f0'
+              }
+            }}
+          >
+            <ListItemIcon>
+              <Checkbox 
+              />
+            </ListItemIcon>
+            <ListItemText>
+              <Typography variant='h6'>めしくう</Typography>
+            </ListItemText>
+          </ListItem>
+  );
+}
 
 const Todos = () => {
   const [checked, setChecked] = useState(false);
@@ -43,59 +75,10 @@ const Todos = () => {
 
         <List sx={{overflow:'auto'}}>
           <ListSubheader>未完了</ListSubheader>
-          <ListItem
-            secondaryAction={
-              <IconButton>
-                <MoreVert />
-              </IconButton>
-            }
-          >
-            <ListItemIcon>
-              <Checkbox 
-                checked={checked}
-                onChange={handleChange}
-              />
-            </ListItemIcon>
-            <ListItemText>
-              <Typography variant='h6'>めしくう</Typography>
-            </ListItemText>
-          </ListItem>
-          <ListItem
-            secondaryAction={
-              <IconButton>
-                <MoreVert />
-              </IconButton>
-            }
-          >
-            <ListItemIcon>
-              <Checkbox 
-                checked={checked}
-                onChange={handleChange}
-              />
-            </ListItemIcon>
-            <ListItemText>
-              <Typography variant='h6'>めしくう</Typography>
-            </ListItemText>
-          </ListItem>
-          
+            <TempItem />
+            <TempItem />
           <ListSubheader>完了済み</ListSubheader>
-          <ListItem
-            secondaryAction={
-              <IconButton>
-                <MoreVert />
-              </IconButton>
-            }
-          >
-            <ListItemIcon>
-              <Checkbox 
-                checked={checked}
-                onChange={handleChange}
-              />
-            </ListItemIcon>
-            <ListItemText>
-              <Typography variant='h6'>めしくう</Typography>
-            </ListItemText>
-          </ListItem>
+            <TempItem />
         </List>
         
     </div>
