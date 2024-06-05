@@ -19,7 +19,7 @@ const TempItem = () => {
               opacity: 0
             },
               '&:hover': {
-                backgroundColor: '#f0f0f0'
+                backgroundColor: '#f5f5f5'
               }
             }}
           >
