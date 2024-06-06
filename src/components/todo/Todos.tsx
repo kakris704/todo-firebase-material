@@ -6,7 +6,7 @@ const TempItem = () => {
   return (
     <ListItem
             secondaryAction={
-              <div style={{transition: '.2s ease-out'}}>
+              <div>
               <IconButton>
                 <MoreVert />
               </IconButton>
@@ -16,11 +16,13 @@ const TempItem = () => {
               opacity: 1
             },
               '.MuiListItemSecondaryAction-root': {
-              opacity: 0
+              transition: '.15s ease',
+              opacity: 0,
             },
               '&:hover': {
                 backgroundColor: '#f5f5f5'
-              }
+              },
+              transition: '.15s ease'
             }}
           >
             <ListItemIcon>
