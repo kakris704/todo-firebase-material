@@ -1,13 +1,13 @@
 import { ModeEdit, Add, TaskAlt, MoreVert } from '@mui/icons-material'
-import { AppBar, Checkbox, IconButton, InputBase, List, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, ListSubheader, Paper, Stack, Typography } from '@mui/material'
+import { AppBar, Checkbox, IconButton, InputBase, List, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, ListSubheader, Menu, MenuItem, Paper, Stack, Typography } from '@mui/material'
 import React, { useState } from 'react'
 
-const TempItem = () => {
+const TempItem = ({handleClick}: {handleClick:any}) => {
   return (
     <ListItem
             secondaryAction={
               <div>
-              <IconButton>
+              <IconButton onClick={handleClick}>
                 <MoreVert />
               </IconButton>
               </div>
@@ -36,8 +36,30 @@ const TempItem = () => {
   );
 }
 
+const TaskMenu = ({anchorEl, open, handleClose}: {anchorEl:null | HTMLElement, open:boolean, handleClose:any}) => {
+  return (
+    <Menu
+      id="task-menu"
+      anchorEl={anchorEl}
+      open={open}
+      onClose={handleClose}
+    >
+      <MenuItem onClick={handleClose}>削除</MenuItem>
+    </Menu>
+  )
+}
+
 const Todos = () => {
   const [checked, setChecked] = useState(false);
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleChange = () => {
     setChecked(prev => !prev)
@@ -77,11 +99,13 @@ const Todos = () => {
 
         <List sx={{overflow:'auto'}}>
           <ListSubheader>未完了</ListSubheader>
-            <TempItem />
-            <TempItem />
+            <TempItem handleClick={handleClick}/>
+            <TempItem handleClick={handleClick}/>
           <ListSubheader>完了済み</ListSubheader>
-            <TempItem />
+            <TempItem handleClick={handleClick}/>
         </List>
+        
+        <TaskMenu anchorEl={anchorEl} open={open} handleClose={handleClose}/>
         
     </div>
   )
