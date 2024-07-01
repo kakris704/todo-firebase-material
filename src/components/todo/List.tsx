@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import ListMUI from '@mui/material/List'
 import { Avatar, Box, Divider, Fab, IconButton, ListItemAvatar, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Typography } from '@mui/material'
 import { Send, Settings, Add, Delete } from '@mui/icons-material'
+import CreateList from './dialog/CreateList'
 
 const TempTodoList = ({ Itemindex, selectIndex, setSelectIndex }: {Itemindex: number, selectIndex: number, setSelectIndex: Function}) => {
 
@@ -34,6 +35,7 @@ const TempTodoList = ({ Itemindex, selectIndex, setSelectIndex }: {Itemindex: nu
 
 const List = () => {
   const [selectIndex, setSelectIndex] = useState(0);
+  const [isCreateListOpen, setCreateListOpen] = useState(false);
 
   return (
     <div className='list grid-item'>
@@ -52,7 +54,7 @@ const List = () => {
               <IconButton size="small">
                 <Delete fontSize="small"/>
               </IconButton>
-              <IconButton size="small">
+              <IconButton size="small" onClick={() => {setCreateListOpen(true)}}>
                 <Add fontSize="small"/>
               </IconButton>
             </div>
@@ -63,6 +65,7 @@ const List = () => {
               <TempTodoList Itemindex={3} selectIndex={selectIndex} setSelectIndex={setSelectIndex}/>
             </div>
         </ListMUI>
+      <CreateList isOpen={isCreateListOpen} setOpen={setCreateListOpen}/>
     </div>
   )
 }
