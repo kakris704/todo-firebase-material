@@ -1,6 +1,7 @@
 import { ModeEdit, Add, TaskAlt, MoreVert } from '@mui/icons-material'
 import { AppBar, Checkbox, IconButton, InputBase, List, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, ListSubheader, Menu, MenuItem, Paper, Stack, Typography } from '@mui/material'
 import React, { useState } from 'react'
+import ListNameEdit from './dialog/ListNameEdit';
 
 const TempItem = ({handleClick}: {handleClick:any}) => {
   return (
@@ -51,6 +52,7 @@ const TaskMenu = ({anchorEl, open, handleClose}: {anchorEl:null | HTMLElement, o
 
 const Todos = () => {
   const [checked, setChecked] = useState(false);
+  const [isEditListOpen, setEditListOpen] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -73,7 +75,7 @@ const Todos = () => {
               <TaskAlt />
               <Typography variant='h6' sx={{alignItems:'center', display: 'flex'}}>やることリスト</Typography>
             </div>
-            <IconButton>
+            <IconButton onClick={() => {setEditListOpen(true)}}>
               <ModeEdit sx={{color:'white'}}/>
             </IconButton>
           </Stack>
@@ -106,8 +108,9 @@ const Todos = () => {
         </List>
         
         <TaskMenu anchorEl={anchorEl} open={open} handleClose={handleClose}/>
-        
+        <ListNameEdit isOpen={isEditListOpen} setOpen={setEditListOpen} />    
     </div>
+    
   )
 }
 

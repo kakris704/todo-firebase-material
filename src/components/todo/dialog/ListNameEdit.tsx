@@ -1,8 +1,7 @@
 import { Button, Dialog, DialogContent, DialogTitle, Stack, TextField } from '@mui/material'
 import React from 'react'
-import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
-
-const CreateList = ({isOpen, setOpen}: {isOpen:boolean, setOpen:Function}) => {
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+const ListNameEdit = ({isOpen, setOpen}: {isOpen:boolean, setOpen:Function}) => {
 
   const handleClose = () => {
     setOpen(false);
@@ -19,7 +18,7 @@ const CreateList = ({isOpen, setOpen}: {isOpen:boolean, setOpen:Function}) => {
           onClose={handleClose}
         >
           <DialogTitle>
-            {"リストの作成"}
+            {"リスト名の編集"}
           </DialogTitle>
           <DialogContent>
             <Stack direction='column'>
@@ -29,7 +28,7 @@ const CreateList = ({isOpen, setOpen}: {isOpen:boolean, setOpen:Function}) => {
                 label="リスト名"
                 sx={{mb:2}}
               />
-              <Button variant='contained' endIcon={<CreateNewFolderIcon />} sx={{width:'60%', ml:'auto', mr:'auto'}} onClick={handleCreate}>
+              <Button variant='contained' endIcon={<BorderColorIcon />} sx={{width:'60%', ml:'auto', mr:'auto'}} onClick={handleCreate}>
                 作成
               </Button>
             </Stack>
@@ -39,4 +38,4 @@ const CreateList = ({isOpen, setOpen}: {isOpen:boolean, setOpen:Function}) => {
   )
 }
 
-export default CreateList
+export default ListNameEdit
