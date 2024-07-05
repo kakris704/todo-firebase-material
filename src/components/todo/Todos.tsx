@@ -3,7 +3,7 @@ import { AppBar, Checkbox, IconButton, InputBase, List, ListItem, ListItemButton
 import React, { useState } from 'react'
 import ListNameEdit from './dialog/ListNameEdit';
 
-const TempItem = ({handleClick}: {handleClick:any}) => {
+const TempItem = ({handleClick, text, complete = false}: {handleClick:any, text:string, complete?:boolean}) => {
   return (
     <ListItem
             secondaryAction={
@@ -28,10 +28,11 @@ const TempItem = ({handleClick}: {handleClick:any}) => {
           >
             <ListItemIcon>
               <Checkbox 
+              checked={complete}
               />
             </ListItemIcon>
             <ListItemText>
-              <Typography variant='h6'>めしくう</Typography>
+              <Typography variant='h6'>{text}</Typography>
             </ListItemText>
           </ListItem>
   );
@@ -56,16 +57,31 @@ const Todos = () => {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
+
   };
 
   const handleChange = () => {
     setChecked(prev => !prev)
   }
+
+  // テスト用のタスク配列
+  const [taskDemo, setTaskDemo] = useState({
+    completed: [
+      {text:"a"},
+      {text:"ピカチュウ"}
+    ],
+    incompleted:[
+      {text:"b"},
+      {text:"c"}
+    ]
+  });
 
   return (
     <div className='todos grid-item' style={{position:'relative'}}>
@@ -101,10 +117,17 @@ const Todos = () => {
 
         <List sx={{overflow:'auto'}}>
           <ListSubheader>未完了</ListSubheader>
-            <TempItem handleClick={handleClick}/>
-            <TempItem handleClick={handleClick}/>
+            {
+              taskDemo.incompleted.map((data) => (
+                    <TempItem handleClick={handleClick} text={data.text}></TempItem>
+              ))
+            }
           <ListSubheader>完了済み</ListSubheader>
-            <TempItem handleClick={handleClick}/>
+            {
+              taskDemo.completed.map((data) => (
+                    <TempItem handleClick={handleClick} text={data.text} complete></TempItem>
+              ))
+            }
         </List>
         
         <TaskMenu anchorEl={anchorEl} open={open} handleClose={handleClose}/>

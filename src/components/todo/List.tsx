@@ -50,7 +50,7 @@ const List = () => {
               </ListItemText>
               <Settings color='action'/>
             </ListItemButton>
-            <Divider sx={{mb:1, mt:1}} variant='middle'/>
+            <Divider sx={{mb:0, mt:1}} variant='middle'/>
             <div className="list-option-wrapper">
               <IconButton size="small">
                 <Delete fontSize="small"/>
