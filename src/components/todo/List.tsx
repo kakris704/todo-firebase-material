@@ -5,8 +5,10 @@ import { Send, Settings, Add, Delete } from '@mui/icons-material'
 import CreateList from './dialog/CreateList'
 import ListNameEdit from './dialog/ListNameEdit'
 
-const TempTodoList = ({ Itemindex, selectIndex, setSelectIndex }: {Itemindex: number, selectIndex: number, setSelectIndex: Function}) => {
+// リスト一つのコンポーネント　改修予定
+const TempTodoList = ({ Itemindex, selectIndex, setSelectIndex, text }: {Itemindex: number, selectIndex: number, setSelectIndex: Function, text:string}) => {
 
+  // Listをクリックしたとき
   const handleItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number
@@ -29,14 +31,13 @@ const TempTodoList = ({ Itemindex, selectIndex, setSelectIndex }: {Itemindex: nu
         }
       }}
     >
-      <ListItemText>やることリスト</ListItemText>
+      <ListItemText>{text}</ListItemText>
     </ListItemButton>
   )
 }
 
-const List = () => {
-  const [selectIndex, setSelectIndex] = useState(0);
-  const [isCreateListOpen, setCreateListOpen] = useState(false);
+const List = ({taskDemo, setTaskDemo, selectIndex, setSelectIndex}: any) => {
+  const [isCreateListOpen, setCreateListOpen] = useState(false); // リストを作成するダイアログの条件
 
   return (
     <div className='list grid-item'>
@@ -60,10 +61,11 @@ const List = () => {
               </IconButton>
             </div>
             <div className='folderList'>
-              <TempTodoList Itemindex={0} selectIndex={selectIndex} setSelectIndex={setSelectIndex}/>
-              <TempTodoList Itemindex={1} selectIndex={selectIndex} setSelectIndex={setSelectIndex}/>
-              <TempTodoList Itemindex={2} selectIndex={selectIndex} setSelectIndex={setSelectIndex}/>
-              <TempTodoList Itemindex={3} selectIndex={selectIndex} setSelectIndex={setSelectIndex}/>
+              {
+                taskDemo.lists.map((data: any, index:number) => (
+                  <TempTodoList Itemindex={index} selectIndex={selectIndex} setSelectIndex={setSelectIndex} text={data.name}/>
+                ))
+              }
             </div>
         </ListMUI>
       <CreateList isOpen={isCreateListOpen} setOpen={setCreateListOpen}/>

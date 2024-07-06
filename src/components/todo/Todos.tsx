@@ -3,6 +3,7 @@ import { AppBar, Checkbox, IconButton, InputBase, List, ListItem, ListItemButton
 import React, { useState } from 'react'
 import ListNameEdit from './dialog/ListNameEdit';
 
+// タスクのコンポーネント　
 const TempItem = ({handleClick, text, complete = false}: {handleClick:any, text:string, complete?:boolean}) => {
   return (
     <ListItem
@@ -38,6 +39,7 @@ const TempItem = ({handleClick, text, complete = false}: {handleClick:any, text:
   );
 }
 
+// タスクごとのメニュー
 const TaskMenu = ({anchorEl, open, handleClose}: {anchorEl:null | HTMLElement, open:boolean, handleClose:any}) => {
   return (
     <Menu
@@ -51,17 +53,19 @@ const TaskMenu = ({anchorEl, open, handleClose}: {anchorEl:null | HTMLElement, o
   )
 }
 
-const Todos = () => {
+const Todos = ({taskDemo, setTaskDemo, selectIndex}: {taskDemo:any, setTaskDemo:any, selectIndex:number}) => {
   const [checked, setChecked] = useState(false);
-  const [isEditListOpen, setEditListOpen] = useState(false);
+  const [isEditListOpen, setEditListOpen] = useState(false); // リスト名編集用ダイアログの条件
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null); // TaskMenuの参照要素
   const open = Boolean(anchorEl);
   
+  // タスクのオプションボタンをクリックしたとき
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
+  // TaskMenuを閉じる時
   const handleClose = () => {
     setAnchorEl(null);
 
@@ -71,25 +75,13 @@ const Todos = () => {
     setChecked(prev => !prev)
   }
 
-  // テスト用のタスク配列
-  const [taskDemo, setTaskDemo] = useState({
-    completed: [
-      {text:"a"},
-      {text:"ピカチュウ"}
-    ],
-    incompleted:[
-      {text:"b"},
-      {text:"c"}
-    ]
-  });
-
   return (
     <div className='todos grid-item' style={{position:'relative'}}>
         <AppBar position="static" sx={{padding: '7px'}} color='primary'>
           <Stack direction='row' sx={{justifyContent:'space-between'}}>
             <div className="title-wrapper">
               <TaskAlt />
-              <Typography variant='h6' sx={{alignItems:'center', display: 'flex'}}>やることリスト</Typography>
+              <Typography variant='h6' sx={{alignItems:'center', display: 'flex'}}>{taskDemo.lists[selectIndex].name}</Typography>
             </div>
             <IconButton onClick={() => {setEditListOpen(true)}}>
               <ModeEdit sx={{color:'white'}}/>
@@ -118,13 +110,13 @@ const Todos = () => {
         <List sx={{overflow:'auto'}}>
           <ListSubheader>未完了</ListSubheader>
             {
-              taskDemo.incompleted.map((data) => (
+              taskDemo.lists[selectIndex].tasks.incompleted.map((data: any) => (
                     <TempItem handleClick={handleClick} text={data.text}></TempItem>
               ))
             }
-          <ListSubheader>完了済み</ListSubheader>
+          {taskDemo.lists[selectIndex].tasks.completed[0] && <ListSubheader>完了済み</ListSubheader>}
             {
-              taskDemo.completed.map((data) => (
+              taskDemo.lists[selectIndex].tasks.completed.map((data: any) => (
                     <TempItem handleClick={handleClick} text={data.text} complete></TempItem>
               ))
             }

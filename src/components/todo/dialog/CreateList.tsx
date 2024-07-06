@@ -4,10 +4,12 @@ import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 
 const CreateList = ({isOpen, setOpen}: {isOpen:boolean, setOpen:Function}) => {
 
+  // 閉じた時
   const handleClose = () => {
     setOpen(false);
   }
 
+  // 作成ボタンクリック時
   const handleCreate = () => {
     setOpen(false);
   }

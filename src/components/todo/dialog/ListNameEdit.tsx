@@ -3,11 +3,13 @@ import React from 'react'
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 const ListNameEdit = ({isOpen, setOpen}: {isOpen:boolean, setOpen:Function}) => {
 
+  // 閉じた時
   const handleClose = () => {
     setOpen(false);
   }
 
-  const handleCreate = () => {
+  // 更新ボタンクリック時
+  const handleChange = () => {
     setOpen(false);
   }
 
@@ -28,8 +30,8 @@ const ListNameEdit = ({isOpen, setOpen}: {isOpen:boolean, setOpen:Function}) => 
                 label="リスト名"
                 sx={{mb:2}}
               />
-              <Button variant='contained' endIcon={<BorderColorIcon />} sx={{width:'60%', ml:'auto', mr:'auto'}} onClick={handleCreate}>
-                作成
+              <Button variant='contained' endIcon={<BorderColorIcon />} sx={{width:'60%', ml:'auto', mr:'auto'}} onClick={handleChange}>
+                更新
               </Button>
             </Stack>
           </DialogContent>
