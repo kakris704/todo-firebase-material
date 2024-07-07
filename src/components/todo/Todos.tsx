@@ -75,6 +75,8 @@ const Todos = ({taskData, setTaskData, selectIndex}: {taskData:any, setTaskData:
     setChecked(prev => !prev)
   }
 
+  const tasks = taskData.lists[selectIndex].tasks // 選択中リストのタスク
+
   return (
     <div className='todos grid-item' style={{position:'relative'}}>
         <AppBar position="static" sx={{padding: '7px'}} color='primary'>
@@ -108,15 +110,16 @@ const Todos = ({taskData, setTaskData, selectIndex}: {taskData:any, setTaskData:
         </div>
 
         <List sx={{overflow:'auto'}}>
-          <ListSubheader>未完了</ListSubheader>
+          {(!tasks.incompleted[0] && !tasks.completed[0]) && <ListSubheader>タスクなし</ListSubheader> /* タスクが存在しない時 */}
+          {tasks.incompleted[0] && <ListSubheader>未完了</ListSubheader>}
             {
-              taskData.lists[selectIndex].tasks.incompleted.map((data: any) => (
+              tasks.incompleted.map((data: any) => (
                     <TempItem handleClick={handleClick} text={data.text}></TempItem>
               ))
             }
-          {taskData.lists[selectIndex].tasks.completed[0] && <ListSubheader>完了済み</ListSubheader>}
+          {tasks.completed[0] && <ListSubheader>完了済み</ListSubheader>}
             {
-              taskData.lists[selectIndex].tasks.completed.map((data: any) => (
+              tasks.completed.map((data: any) => (
                     <TempItem handleClick={handleClick} text={data.text} complete></TempItem>
               ))
             }

@@ -33,6 +33,13 @@ const Main = () => {
 						{text:"それはそう"}
 					]
 				}
+			},
+			{
+				name: "list3",
+				tasks: {
+					completed:[],
+					incompleted:[]
+				}
 			}
 		]
 	});
