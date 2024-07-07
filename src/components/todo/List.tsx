@@ -36,7 +36,7 @@ const TempTodoList = ({ Itemindex, selectIndex, setSelectIndex, text }: {Itemind
   )
 }
 
-const List = ({taskDemo, setTaskDemo, selectIndex, setSelectIndex}: any) => {
+const List = ({taskData, setTaskData, selectIndex, setSelectIndex}: any) => {
   const [isCreateListOpen, setCreateListOpen] = useState(false); // リストを作成するダイアログの条件
 
   return (
@@ -62,7 +62,7 @@ const List = ({taskDemo, setTaskDemo, selectIndex, setSelectIndex}: any) => {
             </div>
             <div className='folderList'>
               {
-                taskDemo.lists.map((data: any, index:number) => (
+                taskData.lists.map((data: any, index:number) => (
                   <TempTodoList Itemindex={index} selectIndex={selectIndex} setSelectIndex={setSelectIndex} text={data.name}/>
                 ))
               }

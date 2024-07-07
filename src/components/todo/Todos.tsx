@@ -53,7 +53,7 @@ const TaskMenu = ({anchorEl, open, handleClose}: {anchorEl:null | HTMLElement, o
   )
 }
 
-const Todos = ({taskDemo, setTaskDemo, selectIndex}: {taskDemo:any, setTaskDemo:any, selectIndex:number}) => {
+const Todos = ({taskData, setTaskData, selectIndex}: {taskData:any, setTaskData:any, selectIndex:number}) => {
   const [checked, setChecked] = useState(false);
   const [isEditListOpen, setEditListOpen] = useState(false); // リスト名編集用ダイアログの条件
 
@@ -81,7 +81,7 @@ const Todos = ({taskDemo, setTaskDemo, selectIndex}: {taskDemo:any, setTaskDemo:
           <Stack direction='row' sx={{justifyContent:'space-between'}}>
             <div className="title-wrapper">
               <TaskAlt />
-              <Typography variant='h6' sx={{alignItems:'center', display: 'flex'}}>{taskDemo.lists[selectIndex].name}</Typography>
+              <Typography variant='h6' sx={{alignItems:'center', display: 'flex'}}>{taskData.lists[selectIndex].name}</Typography>
             </div>
             <IconButton onClick={() => {setEditListOpen(true)}}>
               <ModeEdit sx={{color:'white'}}/>
@@ -110,13 +110,13 @@ const Todos = ({taskDemo, setTaskDemo, selectIndex}: {taskDemo:any, setTaskDemo:
         <List sx={{overflow:'auto'}}>
           <ListSubheader>未完了</ListSubheader>
             {
-              taskDemo.lists[selectIndex].tasks.incompleted.map((data: any) => (
+              taskData.lists[selectIndex].tasks.incompleted.map((data: any) => (
                     <TempItem handleClick={handleClick} text={data.text}></TempItem>
               ))
             }
-          {taskDemo.lists[selectIndex].tasks.completed[0] && <ListSubheader>完了済み</ListSubheader>}
+          {taskData.lists[selectIndex].tasks.completed[0] && <ListSubheader>完了済み</ListSubheader>}
             {
-              taskDemo.lists[selectIndex].tasks.completed.map((data: any) => (
+              taskData.lists[selectIndex].tasks.completed.map((data: any) => (
                     <TempItem handleClick={handleClick} text={data.text} complete></TempItem>
               ))
             }

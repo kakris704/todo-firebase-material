@@ -47,10 +47,10 @@ const Main = () => {
 				<Paper elevation={5} sx={{ width: '100%', height: '90vh', borderRadius: '10px', overflow:'hidden' }}>
 					<Grid container spacing={0} sx={{ width: '100%', height: '100%'}}>
 						<Grid xs={3} sx={{borderRight:'solid 1px rgb(224, 224, 224)'}}>
-							<List taskDemo={taskDemo} setTaskDemo={setTaskDemo} selectIndex={selectListIndex} setSelectIndex={setSelectListIndex}/>
+							<List taskData={taskDemo} setTaskData={setTaskDemo} selectIndex={selectListIndex} setSelectIndex={setSelectListIndex}/>
 						</Grid>
 						<Grid xs={9}>
-							<Todos taskDemo={taskDemo} setTaskDemo={setTaskDemo} selectIndex={selectListIndex}/>
+							<Todos taskData={taskDemo} setTaskData={setTaskDemo} selectIndex={selectListIndex}/>
 						</Grid>
 					</Grid>
 				</Paper>
