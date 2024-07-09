@@ -18,7 +18,7 @@ const Main = () => {
 						{text:"a"},
 						{text:"ピカチュウ"}
 					  ],
-					incompleted:[ // 未完了
+					incomplete:[ // 未完了
 						{text:"b"},
 						{text:"c"}
 					  ]
@@ -29,7 +29,7 @@ const Main = () => {
 				tasks: {
 					completed: [
 					],
-					incompleted: [
+					incomplete: [
 						{text:"それはそう"}
 					]
 				}
@@ -38,7 +38,7 @@ const Main = () => {
 				name: "list3",
 				tasks: {
 					completed:[],
-					incompleted:[]
+					incomplete:[]
 				}
 			}
 		]
@@ -53,10 +53,10 @@ const Main = () => {
 			<Container maxWidth="xl" sx={{ height: '100vh', display: 'flex', alignItems: 'center' }}>
 				<Paper elevation={5} sx={{ width: '100%', height: '90vh', borderRadius: '10px', overflow:'hidden' }}>
 					<Grid container spacing={0} sx={{ width: '100%', height: '100%'}}>
-						<Grid xs={3} sx={{borderRight:'solid 1px rgb(224, 224, 224)'}}>
+						<Grid xs={3} sx={{borderRight:'solid 1px rgb(224, 224, 224)'}} key={'list'}>
 							<List taskData={taskDemo} setTaskData={setTaskDemo} selectIndex={selectListIndex} setSelectIndex={setSelectListIndex}/>
 						</Grid>
-						<Grid xs={9}>
+						<Grid xs={9} key={'todos'}>
 							<Todos taskData={taskDemo} setTaskData={setTaskDemo} selectIndex={selectListIndex}/>
 						</Grid>
 					</Grid>

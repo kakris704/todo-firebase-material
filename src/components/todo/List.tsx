@@ -26,9 +26,6 @@ const TempTodoList = ({ Itemindex, selectIndex, setSelectIndex, text }: {Itemind
           ml:1,
           color:'#1100ff',
         },
-        '.MuiListItemText-primary': {
-          transition: '.15s ease'
-        },
         '&.Mui-selected::before': {
           position:'absolute',
           content:'""',
@@ -45,8 +42,9 @@ const TempTodoList = ({ Itemindex, selectIndex, setSelectIndex, text }: {Itemind
 }
 
 const List = ({taskData, setTaskData, selectIndex, setSelectIndex}: any) => {
-  const [isCreateListOpen, setCreateListOpen] = useState(false); // リストを作成するダイアログの条件
 
+  const [isCreateListOpen, setCreateListOpen] = useState(false); // リストを作成するダイアログの条件
+  
   return (
     <div className='list grid-item'>
         <ListMUI sx={{ width: '100%'}} component="nav" aria-labelledby="nested-list-subheader">
@@ -71,12 +69,12 @@ const List = ({taskData, setTaskData, selectIndex, setSelectIndex}: any) => {
             <div className='folderList'>
               {
                 taskData.lists.map((data: any, index:number) => (
-                  <TempTodoList Itemindex={index} selectIndex={selectIndex} setSelectIndex={setSelectIndex} text={data.name}/>
+                  <TempTodoList Itemindex={index} selectIndex={selectIndex} setSelectIndex={setSelectIndex} text={data.name} key={index}/>
                 ))
               }
             </div>
         </ListMUI>
-      <CreateList isOpen={isCreateListOpen} setOpen={setCreateListOpen}/>
+      <CreateList isOpen={isCreateListOpen} setOpen={setCreateListOpen} setTaskData={setTaskData}/>
     </div>
   )
 }

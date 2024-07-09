@@ -72,7 +72,7 @@ const Todos = ({taskData, setTaskData, selectIndex}: {taskData:any, setTaskData:
   };
 
   const handleChange = () => {
-    setChecked(prev => !prev)
+    setChecked(prev => !prev);
   }
 
   const tasks = taskData.lists[selectIndex].tasks // 選択中リストのタスク
@@ -110,17 +110,17 @@ const Todos = ({taskData, setTaskData, selectIndex}: {taskData:any, setTaskData:
         </div>
 
         <List sx={{overflow:'auto'}}>
-          {(!tasks.incompleted[0] && !tasks.completed[0]) && <ListSubheader>タスクなし</ListSubheader> /* タスクが存在しない時 */}
-          {tasks.incompleted[0] && <ListSubheader>未完了</ListSubheader>}
+          {(!tasks.incomplete[0] && !tasks.completed[0]) && <ListSubheader>タスクなし</ListSubheader> /* タスクが存在しない時 */}
+          {tasks.incomplete[0] && <ListSubheader>未完了</ListSubheader>}
             {
-              tasks.incompleted.map((data: any) => (
-                    <TempItem handleClick={handleClick} text={data.text}></TempItem>
+              tasks.incomplete.map((data: any, index: number) => (
+                    <TempItem handleClick={handleClick} text={data.text} key={index}></TempItem>
               ))
             }
           {tasks.completed[0] && <ListSubheader>完了済み</ListSubheader>}
             {
-              tasks.completed.map((data: any) => (
-                    <TempItem handleClick={handleClick} text={data.text} complete></TempItem>
+              tasks.completed.map((data: any, index:number) => (
+                    <TempItem handleClick={handleClick} text={data.text} complete key={index}></TempItem>
               ))
             }
         </List>

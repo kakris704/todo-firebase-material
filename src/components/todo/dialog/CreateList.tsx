@@ -1,8 +1,10 @@
 import { Button, Dialog, DialogContent, DialogTitle, Stack, TextField } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 
-const CreateList = ({isOpen, setOpen}: {isOpen:boolean, setOpen:Function}) => {
+const CreateList = ({isOpen, setOpen, setTaskData}: {isOpen:boolean, setOpen:Function, setTaskData:Function}) => {
+
+  const [listName, setListName] = useState("");
 
   // 閉じた時
   const handleClose = () => {
@@ -12,6 +14,22 @@ const CreateList = ({isOpen, setOpen}: {isOpen:boolean, setOpen:Function}) => {
   // 作成ボタンクリック時
   const handleCreate = () => {
     setOpen(false);
+    setTaskData(setTask);
+    setListName("");
+  }
+  // タスクを更新する
+  const setTask = (prev:any) => {
+    const addData = prev; // 代入するデータ
+    // ここまでがテンプレ
+    const defaultData = {
+      name: listName,
+      tasks:{
+        completed:[],
+        incomplete:[]
+      }
+    }
+    addData.lists.push(defaultData); // テンプレを追加
+    return addData;
   }
 
   return (
@@ -30,6 +48,8 @@ const CreateList = ({isOpen, setOpen}: {isOpen:boolean, setOpen:Function}) => {
                 variant="standard"
                 label="リスト名"
                 sx={{mb:2}}
+                onChange={(e) => setListName(e.target.value)}
+                value={listName}
               />
               <Button variant='contained' endIcon={<CreateNewFolderIcon />} sx={{width:'60%', ml:'auto', mr:'auto'}} onClick={handleCreate}>
                 作成
