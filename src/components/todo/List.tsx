@@ -24,10 +24,18 @@ const TempTodoList = ({ Itemindex, selectIndex, setSelectIndex, text }: {Itemind
         '&.Mui-selected .MuiListItemText-primary': {
           fontWeight:700,
           ml:1,
-          color:'#1100ff'
+          color:'#1100ff',
         },
         '.MuiListItemText-primary': {
           transition: '.15s ease'
+        },
+        '&.Mui-selected::before': {
+          position:'absolute',
+          content:'""',
+          width:'10px',
+          height:'100%',
+          ml:'-20px',
+          backgroundColor:'#2189ff'
         }
       }}
     >
