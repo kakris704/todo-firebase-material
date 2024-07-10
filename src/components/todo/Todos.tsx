@@ -141,7 +141,7 @@ const Todos = ({taskData, setTaskData, selectIndex}: {taskData:any, setTaskData:
         </List>
         
         <TaskMenu anchorEl={anchorEl} open={open} handleClose={handleClose}/>
-        <ListNameEdit isOpen={isEditListOpen} setOpen={setEditListOpen} />    
+        <ListNameEdit isOpen={isEditListOpen} setOpen={setEditListOpen} setTaskData={setTaskData} selectIndex={selectIndex}/>    
     </div>
     
   )
