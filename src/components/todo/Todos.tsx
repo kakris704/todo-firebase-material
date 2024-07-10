@@ -54,6 +54,7 @@ const TaskMenu = ({anchorEl, open, handleClose}: {anchorEl:null | HTMLElement, o
 }
 
 const Todos = ({taskData, setTaskData, selectIndex}: {taskData:any, setTaskData:any, selectIndex:number}) => {
+  const [inputText, setInputText] = useState(""); // 入力中のテキスト
   const [checked, setChecked] = useState(false);
   const [isEditListOpen, setEditListOpen] = useState(false); // リスト名編集用ダイアログの条件
 
@@ -75,6 +76,17 @@ const Todos = ({taskData, setTaskData, selectIndex}: {taskData:any, setTaskData:
     setChecked(prev => !prev);
   }
 
+  // タスクの追加をする
+  const handleAddTask = () => {
+    setTaskData((prev:any) => {
+      const addData = prev;
+      const defaultData = {text:inputText}
+      addData.lists[selectIndex].tasks.incomplete.push(defaultData);
+      return addData;
+    })
+    setInputText("");
+  }
+
   const tasks = taskData.lists[selectIndex].tasks // 選択中リストのタスク
 
   return (
@@ -90,6 +102,7 @@ const Todos = ({taskData, setTaskData, selectIndex}: {taskData:any, setTaskData:
             </IconButton>
           </Stack>
         </AppBar>
+
         <div className="text-field-wrapper">
           <Paper sx={{width: '95%', height:'50px', position: 'absolute', bottom:'30px'}} elevation={3}>
             <Stack direction='row' sx={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
@@ -101,8 +114,10 @@ const Todos = ({taskData, setTaskData, selectIndex}: {taskData:any, setTaskData:
                   fontSize: '1.3rem',
                   pl: '15px'
                 }}}
+                onChange={(e) => {setInputText(e.target.value)}}
+                value={inputText}
               />
-              <IconButton sx={{width:'40px', height:'40px', mr:'5px'}}>
+              <IconButton sx={{width:'40px', height:'40px', mr:'5px'}} onClick={handleAddTask}>
                 <Add fontSize='medium'/>
               </IconButton>
             </Stack>
