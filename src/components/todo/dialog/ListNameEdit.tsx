@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogContent, DialogTitle, Stack, TextField } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import BorderColorIcon from '@mui/icons-material/BorderColor';
-const ListNameEdit = ({isOpen, setOpen, setTaskData, selectIndex}: {isOpen:boolean, setOpen:Function, setTaskData:Function, selectIndex:number}) => {
+const ListNameEdit = ({isOpen, setOpen, setTaskData, selectIndex, taskData}: {isOpen:boolean, setOpen:Function, setTaskData:Function, selectIndex:number, taskData:any}) => {
 
   const [inputText, setInputText] = useState("");
 
@@ -22,6 +22,10 @@ const ListNameEdit = ({isOpen, setOpen, setTaskData, selectIndex}: {isOpen:boole
       })
     }
   }
+
+  useEffect(() => {
+    setInputText(taskData.lists[selectIndex].name);
+  }, [isOpen])
 
   return (
     <div className='create-list'>
