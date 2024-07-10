@@ -44,6 +44,15 @@ const TempTodoList = ({ Itemindex, selectIndex, setSelectIndex, text }: {Itemind
 const List = ({taskData, setTaskData, selectIndex, setSelectIndex}: any) => {
 
   const [isCreateListOpen, setCreateListOpen] = useState(false); // リストを作成するダイアログの条件
+
+  const handleListDelete = () => {
+    setTaskData((prev: any) => {
+      const removeData = prev;
+      removeData.lists.splice(selectIndex, 1);
+      return removeData;
+    });
+    console.log(taskData);
+  }
   
   return (
     <div className='list grid-item'>
@@ -59,7 +68,7 @@ const List = ({taskData, setTaskData, selectIndex, setSelectIndex}: any) => {
             </ListItemButton>
             <Divider sx={{mb:0, mt:1}} variant='middle'/>
             <div className="list-option-wrapper">
-              <IconButton size="small">
+              <IconButton size="small" onClick={handleListDelete}>
                 <Delete fontSize="small"/>
               </IconButton>
               <IconButton size="small" onClick={() => {setCreateListOpen(true)}}>
