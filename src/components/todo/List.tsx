@@ -46,12 +46,14 @@ const List = ({taskData, setTaskData, selectIndex, setSelectIndex}: any) => {
   const [isCreateListOpen, setCreateListOpen] = useState(false); // リストを作成するダイアログの条件
 
   const handleListDelete = () => {
-    setTaskData((prev: any) => {
-      const removeData = prev;
-      removeData.lists.splice(selectIndex, 1);
-      return removeData;
-    });
-    console.log(taskData);
+    if(taskData.lists[1]) {
+      setTaskData((prev: any) => {
+        const removeData = {...prev};
+        removeData.lists.splice(selectIndex, 1);
+        if(selectIndex > 0) setSelectIndex((prev:number) => prev - 1)
+        return removeData;
+      });
+    }
   }
   
   return (

@@ -13,23 +13,22 @@ const CreateList = ({isOpen, setOpen, setTaskData}: {isOpen:boolean, setOpen:Fun
 
   // 作成ボタンクリック時
   const handleCreate = () => {
-    setOpen(false);
-    setTaskData(setTask);
-    setListName("");
-  }
-  // タスクを更新する
-  const setTask = (prev:any) => {
-    const addData = prev; // 代入するデータ
-    // ここまでがテンプレ
-    const defaultData = {
-      name: listName,
-      tasks:{
-        completed:[],
-        incomplete:[]
-      }
+    if(listName !== "") {
+      setOpen(false);
+      setTaskData((prev:any) => {
+        const addData = {...prev}; // 代入するデータ
+        const defaultData = {
+          name: listName,
+          tasks:{
+            completed:[],
+            incomplete:[]
+          }
+        }
+        addData.lists.push(defaultData); // テンプレを追加
+        setListName("");
+        return addData;
+      });
     }
-    addData.lists.push(defaultData); // テンプレを追加
-    return addData;
   }
 
   return (

@@ -12,13 +12,15 @@ const ListNameEdit = ({isOpen, setOpen, setTaskData, selectIndex}: {isOpen:boole
 
   // 更新ボタンクリック時
   const handleChange = () => {
-    setTaskData((prev: any) => {
-      const addData = prev;
-      addData.lists[selectIndex].name = inputText;
-      setOpen(false);
-      setInputText("");
-      return addData;
-    })
+    if(inputText !== "") {
+      setTaskData((prev: any) => {
+        const addData = {...prev};
+        addData.lists[selectIndex].name = inputText;
+        setOpen(false);
+        setInputText("");
+        return addData;
+      })
+    }
   }
 
   return (

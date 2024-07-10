@@ -78,13 +78,15 @@ const Todos = ({taskData, setTaskData, selectIndex}: {taskData:any, setTaskData:
 
   // タスクの追加をする
   const handleAddTask = () => {
-    setTaskData((prev:any) => {
-      const addData = prev;
-      const defaultData = {text:inputText}
-      addData.lists[selectIndex].tasks.incomplete.push(defaultData);
-      return addData;
-    })
-    setInputText("");
+    if(inputText !== "") {
+      setTaskData((prev:any) => {
+        const addData = {...prev};
+        const defaultData = {text:inputText}
+        addData.lists[selectIndex].tasks.incomplete.push(defaultData);
+        return addData;
+      })
+      setInputText("");
+    }
   }
 
   const tasks = taskData.lists[selectIndex].tasks // 選択中リストのタスク
