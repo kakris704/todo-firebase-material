@@ -4,7 +4,24 @@ import React, { useState } from 'react'
 import ListNameEdit from './dialog/ListNameEdit';
 
 // タスクのコンポーネント　
-const TempItem = ({handleClick, text, complete = false, index}: {handleClick:any, text:string, complete?:boolean, index:number}) => {
+const TempItem = ({handleClick, text, complete = false, index, setTaskData, selectIndex}: {handleClick:any, text:string, complete?:boolean, index:number, setTaskData:Function, selectIndex:number}) => {
+  
+  const handleChecked = () => {
+    setTaskData((prev:any) => {
+      const setData = {...prev}
+      let moveData
+      if(complete) {
+        moveData = setData.lists[selectIndex].tasks.completed.splice(index, 1);
+        setData.lists[selectIndex].tasks.incomplete.push(moveData[0]);
+      } else {
+        moveData = setData.lists[selectIndex].tasks.incomplete.splice(index, 1);
+        setData.lists[selectIndex].tasks.completed.push(moveData[0]);
+      }
+      console.log(setData);
+      return setData;
+    })
+  }
+
   return (
     <ListItem
             secondaryAction={
@@ -30,6 +47,7 @@ const TempItem = ({handleClick, text, complete = false, index}: {handleClick:any
             <ListItemIcon>
               <Checkbox 
               checked={complete}
+              onClick={handleChecked}
               />
             </ListItemIcon>
             <ListItemText>
@@ -145,13 +163,13 @@ const Todos = ({taskData, setTaskData, selectIndex}: {taskData:any, setTaskData:
           {tasks.incomplete[0] && <ListSubheader>未完了</ListSubheader>}
             {
               tasks.incomplete.map((data: any, index: number) => (
-                    <TempItem handleClick={handleClick} text={data.text} key={index} index={index}></TempItem>
+                    <TempItem handleClick={handleClick} text={data.text} key={index} index={index} setTaskData={setTaskData} selectIndex={selectIndex}></TempItem>
               ))
             }
           {tasks.completed[0] && <ListSubheader>完了済み</ListSubheader>}
             {
               tasks.completed.map((data: any, index:number) => (
-                    <TempItem handleClick={handleClick} text={data.text} complete key={index} index={index}></TempItem>
+                    <TempItem handleClick={handleClick} text={data.text} complete key={index} index={index} setTaskData={setTaskData} selectIndex={selectIndex}></TempItem>
               ))
             }
         </List>
