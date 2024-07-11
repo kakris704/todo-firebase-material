@@ -31,6 +31,7 @@ const TempItem = ({handleClick, text, complete = false, index, setTaskData, sele
               </IconButton>
               </div>
             }
+            className={complete ? "complete" : ""}
             sx={{'&:hover .MuiListItemSecondaryAction-root': {
               opacity: 1
             },
@@ -41,7 +42,10 @@ const TempItem = ({handleClick, text, complete = false, index, setTaskData, sele
               '&:hover': {
                 backgroundColor: '#f5f5f5'
               },
-              transition: '.15s ease'
+              transition: '.15s ease',
+              '&.complete' : {
+                color:'#6e6e6e'
+              }
             }}
           >
             <ListItemIcon>
