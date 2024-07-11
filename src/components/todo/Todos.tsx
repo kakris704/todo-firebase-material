@@ -4,12 +4,12 @@ import React, { useState } from 'react'
 import ListNameEdit from './dialog/ListNameEdit';
 
 // タスクのコンポーネント　
-const TempItem = ({handleClick, text, complete = false}: {handleClick:any, text:string, complete?:boolean}) => {
+const TempItem = ({handleClick, text, complete = false, index}: {handleClick:any, text:string, complete?:boolean, index:number}) => {
   return (
     <ListItem
             secondaryAction={
               <div>
-              <IconButton onClick={handleClick}>
+              <IconButton onClick={(e) => handleClick(e, index, complete)}>
                 <MoreVert />
               </IconButton>
               </div>
@@ -40,7 +40,7 @@ const TempItem = ({handleClick, text, complete = false}: {handleClick:any, text:
 }
 
 // タスクごとのメニュー
-const TaskMenu = ({anchorEl, open, handleClose}: {anchorEl:null | HTMLElement, open:boolean, handleClose:any}) => {
+const TaskMenu = ({anchorEl, open, handleDelete, handleClose}: {anchorEl:null | HTMLElement, open:boolean, handleDelete:any, handleClose:any}) => {
   return (
     <Menu
       id="task-menu"
@@ -48,7 +48,7 @@ const TaskMenu = ({anchorEl, open, handleClose}: {anchorEl:null | HTMLElement, o
       open={open}
       onClose={handleClose}
     >
-      <MenuItem onClick={handleClose}>削除</MenuItem>
+      <MenuItem onClick={handleDelete}>削除</MenuItem>
     </Menu>
   )
 }
@@ -57,20 +57,34 @@ const Todos = ({taskData, setTaskData, selectIndex}: {taskData:any, setTaskData:
   const [inputText, setInputText] = useState(""); // 入力中のテキスト
   const [checked, setChecked] = useState(false);
   const [isEditListOpen, setEditListOpen] = useState(false); // リスト名編集用ダイアログの条件
-
+  const [selectMenuIndex, setMenuIndex] = useState<any>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null); // TaskMenuの参照要素
   const open = Boolean(anchorEl);
   
   // タスクのオプションボタンをクリックしたとき
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>, index:number, complete:boolean) => {
     setAnchorEl(event.currentTarget);
+    setMenuIndex({index:index, complete:complete});
   };
 
   // TaskMenuを閉じる時
+  const handleDelete = () => {
+    handleClose();
+    setTaskData((prev:any) => {
+      const setData = {...prev}
+      if(selectMenuIndex.complete) {
+        setData.lists[selectIndex].tasks.completed.splice(selectMenuIndex.index, 1);
+      } else if(!selectMenuIndex.compete) {
+        setData.lists[selectIndex].tasks.incomplete.splice(selectMenuIndex.index, 1);
+      }
+      return setData;
+    });
+    setMenuIndex(null);
+  };
+
   const handleClose = () => {
     setAnchorEl(null);
-
-  };
+  }
 
   const handleChange = () => {
     setChecked(prev => !prev);
@@ -131,18 +145,18 @@ const Todos = ({taskData, setTaskData, selectIndex}: {taskData:any, setTaskData:
           {tasks.incomplete[0] && <ListSubheader>未完了</ListSubheader>}
             {
               tasks.incomplete.map((data: any, index: number) => (
-                    <TempItem handleClick={handleClick} text={data.text} key={index}></TempItem>
+                    <TempItem handleClick={handleClick} text={data.text} key={index} index={index}></TempItem>
               ))
             }
           {tasks.completed[0] && <ListSubheader>完了済み</ListSubheader>}
             {
               tasks.completed.map((data: any, index:number) => (
-                    <TempItem handleClick={handleClick} text={data.text} complete key={index}></TempItem>
+                    <TempItem handleClick={handleClick} text={data.text} complete key={index} index={index}></TempItem>
               ))
             }
         </List>
         
-        <TaskMenu anchorEl={anchorEl} open={open} handleClose={handleClose}/>
+        <TaskMenu anchorEl={anchorEl} open={open} handleDelete={handleDelete} handleClose={handleClose}/>
         <ListNameEdit isOpen={isEditListOpen} setOpen={setEditListOpen} setTaskData={setTaskData} selectIndex={selectIndex} taskData={taskData}/>    
     </div>
     
