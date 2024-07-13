@@ -2,6 +2,8 @@ import { ModeEdit, Add, TaskAlt, MoreVert } from '@mui/icons-material'
 import { AppBar, Checkbox, IconButton, InputBase, List, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, ListSubheader, Menu, MenuItem, Paper, Stack, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import ListNameEdit from './dialog/ListNameEdit';
+import CheckIcon from '@mui/icons-material/Check';
+import NotesIcon from '@mui/icons-material/Notes';
 
 // タスクのコンポーネント　
 const TempItem = ({handleClick, text, complete = false, index, setTaskData, selectIndex}: {handleClick:any, text:string, complete?:boolean, index:number, setTaskData:Function, selectIndex:number}) => {
@@ -164,13 +166,13 @@ const Todos = ({taskData, setTaskData, selectIndex}: {taskData:any, setTaskData:
 
         <List sx={{overflow:'auto'}}>
           {(!tasks.incomplete[0] && !tasks.completed[0]) && <ListSubheader>タスクなし</ListSubheader> /* タスクが存在しない時 */}
-          {tasks.incomplete[0] && <ListSubheader>未完了</ListSubheader>}
+          {tasks.incomplete[0] && <ListSubheader sx={{display:'flex',alignItems:'center'}}><NotesIcon sx={{mr:1}}/>未完了</ListSubheader>}
             {
               tasks.incomplete.map((data: any, index: number) => (
                     <TempItem handleClick={handleClick} text={data.text} key={index} index={index} setTaskData={setTaskData} selectIndex={selectIndex}></TempItem>
               ))
             }
-          {tasks.completed[0] && <ListSubheader>完了済み</ListSubheader>}
+          {tasks.completed[0] && <ListSubheader sx={{display:'flex',alignItems:'center'}}><CheckIcon sx={{mr:1}}/>完了済み</ListSubheader>}
             {
               tasks.completed.map((data: any, index:number) => (
                     <TempItem handleClick={handleClick} text={data.text} complete key={index} index={index} setTaskData={setTaskData} selectIndex={selectIndex}></TempItem>
