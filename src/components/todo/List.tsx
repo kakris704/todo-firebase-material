@@ -4,6 +4,7 @@ import { Avatar, Box, Divider, Fab, IconButton, ListItemAvatar, ListItemButton, 
 import { Send, Settings, Add, Delete } from '@mui/icons-material'
 import CreateList from './dialog/CreateList'
 import ListNameEdit from './dialog/ListNameEdit'
+import { auth } from '../../firebase'
 
 // リスト一つのコンポーネント　改修予定
 const TempTodoList = ({ Itemindex, selectIndex, setSelectIndex, text }: {Itemindex: number, selectIndex: number, setSelectIndex: Function, text:string}) => {
@@ -61,10 +62,10 @@ const List = ({taskData, setTaskData, selectIndex, setSelectIndex}: any) => {
         <ListMUI sx={{ width: '100%'}} component="nav" aria-labelledby="nested-list-subheader">
             <ListItemButton>
               <ListItemAvatar>
-                <Avatar>R</Avatar>
+                <Avatar src={auth.currentUser?.photoURL ?? ""}/>
               </ListItemAvatar>
               <ListItemText>
-                <Typography variant='h6'>Kakris</Typography>
+                <Typography variant='h6'>{auth.currentUser?.displayName}</Typography>
               </ListItemText>
               <Settings color='action'/>
             </ListItemButton>

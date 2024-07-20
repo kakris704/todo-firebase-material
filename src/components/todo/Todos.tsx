@@ -130,7 +130,7 @@ const Todos = ({taskData, setTaskData, selectIndex}: {taskData:any, setTaskData:
   const tasks = taskData.lists[selectIndex].tasks // 選択中リストのタスク
 
   return (
-    <div className='todos grid-item' style={{position:'relative'}}>
+    <div className='todos grid-item' style={{position:'relative',height:'100%'}}>
         <AppBar position="static" sx={{padding: '7px'}} color='primary'>
           <Stack direction='row' sx={{justifyContent:'space-between'}}>
             <div className="title-wrapper">
@@ -143,8 +143,26 @@ const Todos = ({taskData, setTaskData, selectIndex}: {taskData:any, setTaskData:
           </Stack>
         </AppBar>
 
-        <div className="text-field-wrapper">
-          <Paper sx={{width: '95%', height:'50px', position: 'absolute', bottom:'30px'}} elevation={3}>
+        <div className="todoList-wrapper" style={{overflow:'auto', height:'90%'}}>
+        <List sx={{zIndex:0}}>
+          {(!tasks.incomplete[0] && !tasks.completed[0]) && <ListSubheader>タスクなし</ListSubheader> /* タスクが存在しない時 */}
+          {tasks.incomplete[0] && <ListSubheader sx={{display:'flex',alignItems:'center'}}><NotesIcon sx={{mr:1}}/>未完了</ListSubheader>}
+            {
+              tasks.incomplete.map((data: any, index: number) => (
+                    <TempItem handleClick={handleClick} text={data.text} key={index} index={index} setTaskData={setTaskData} selectIndex={selectIndex}></TempItem>
+              ))
+            }
+          {tasks.completed[0] && <ListSubheader sx={{display:'flex',alignItems:'center'}}><CheckIcon sx={{mr:1}}/>完了済み</ListSubheader>}
+            {
+              tasks.completed.map((data: any, index:number) => (
+                    <TempItem handleClick={handleClick} text={data.text} complete key={index} index={index} setTaskData={setTaskData} selectIndex={selectIndex}></TempItem>
+              ))
+            }
+        </List>
+        </div>
+
+        <div className="text-field-wrapper" style={{overflow:'hidden'}}>
+          <Paper sx={{width: '95%', height:'50px', position: 'absolute', bottom:'25px'}} elevation={3}>
             <Stack direction='row' sx={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
               <InputBase
                 placeholder="Todoを追加"
@@ -163,22 +181,6 @@ const Todos = ({taskData, setTaskData, selectIndex}: {taskData:any, setTaskData:
             </Stack>
           </Paper>
         </div>
-
-        <List sx={{overflow:'auto'}}>
-          {(!tasks.incomplete[0] && !tasks.completed[0]) && <ListSubheader>タスクなし</ListSubheader> /* タスクが存在しない時 */}
-          {tasks.incomplete[0] && <ListSubheader sx={{display:'flex',alignItems:'center'}}><NotesIcon sx={{mr:1}}/>未完了</ListSubheader>}
-            {
-              tasks.incomplete.map((data: any, index: number) => (
-                    <TempItem handleClick={handleClick} text={data.text} key={index} index={index} setTaskData={setTaskData} selectIndex={selectIndex}></TempItem>
-              ))
-            }
-          {tasks.completed[0] && <ListSubheader sx={{display:'flex',alignItems:'center'}}><CheckIcon sx={{mr:1}}/>完了済み</ListSubheader>}
-            {
-              tasks.completed.map((data: any, index:number) => (
-                    <TempItem handleClick={handleClick} text={data.text} complete key={index} index={index} setTaskData={setTaskData} selectIndex={selectIndex}></TempItem>
-              ))
-            }
-        </List>
         
         <TaskMenu anchorEl={anchorEl} open={open} handleDelete={handleDelete} handleClose={handleClose}/>
         <ListNameEdit isOpen={isEditListOpen} setOpen={setEditListOpen} setTaskData={setTaskData} selectIndex={selectIndex} taskData={taskData}/>    

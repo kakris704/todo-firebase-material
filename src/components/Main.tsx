@@ -56,7 +56,7 @@ const Main = () => {
 						<Grid xs={3} sx={{borderRight:'solid 1px rgb(224, 224, 224)'}} key={'list'}>
 							<List taskData={taskDemo} setTaskData={setTaskDemo} selectIndex={selectListIndex} setSelectIndex={setSelectListIndex}/>
 						</Grid>
-						<Grid xs={9} key={'todos'}>
+						<Grid xs={9} key={'todos'} sx={{height:'100%'}}>
 							<Todos taskData={taskDemo} setTaskData={setTaskDemo} selectIndex={selectListIndex}/>
 						</Grid>
 					</Grid>

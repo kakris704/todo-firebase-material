@@ -17,6 +17,9 @@
         display: flex;
         justify-content: center;
     }
+    .text-field-wrapper * {
+        z-index: 2;
+    }
 
     
 }
