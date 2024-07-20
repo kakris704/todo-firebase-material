@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import ListMUI from '@mui/material/List'
 import { Avatar, Box, Divider, Fab, IconButton, ListItemAvatar, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Typography } from '@mui/material'
-import { Send, Settings, Add, Delete } from '@mui/icons-material'
+import { Send, Add, Delete, Settings } from '@mui/icons-material'
 import CreateList from './dialog/CreateList'
 import ListNameEdit from './dialog/ListNameEdit'
 import { auth } from '../../firebase'
+import SettingsDialog from './dialog/Settings'
 
 // リスト一つのコンポーネント　改修予定
 const TempTodoList = ({ Itemindex, selectIndex, setSelectIndex, text }: {Itemindex: number, selectIndex: number, setSelectIndex: Function, text:string}) => {
@@ -45,6 +46,7 @@ const TempTodoList = ({ Itemindex, selectIndex, setSelectIndex, text }: {Itemind
 const List = ({taskData, setTaskData, selectIndex, setSelectIndex, updateDoc}: any) => {
 
   const [isCreateListOpen, setCreateListOpen] = useState(false); // リストを作成するダイアログの条件
+  const [isSettingsOpen, setSettingsOpen] = useState(false);
 
   const handleListDelete = () => {
     if(taskData.lists[1]) {
@@ -61,7 +63,7 @@ const List = ({taskData, setTaskData, selectIndex, setSelectIndex, updateDoc}: a
   return (
     <div className='list grid-item'>
         <ListMUI sx={{ width: '100%'}} component="nav" aria-labelledby="nested-list-subheader">
-            <ListItemButton>
+            <ListItemButton onClick={() => setSettingsOpen(true)}>
               <ListItemAvatar>
                 <Avatar src={auth.currentUser?.photoURL ?? ""}/>
               </ListItemAvatar>
@@ -88,6 +90,7 @@ const List = ({taskData, setTaskData, selectIndex, setSelectIndex, updateDoc}: a
             </div>
         </ListMUI>
       <CreateList isOpen={isCreateListOpen} setOpen={setCreateListOpen} setTaskData={setTaskData} updateDoc={updateDoc}/>
+      <SettingsDialog isOpen={isSettingsOpen} setOpen={setSettingsOpen} />
     </div>
   )
 }

@@ -23,6 +23,10 @@ const Main = () => {
 		]
 	});
 
+	const defaultData = {
+		lists:[{name:'Todoリスト',tasks:{completed:[],incomplete:[]}}]
+	}
+
 	// 選択中リストのindex
 	const [selectListIndex, setSelectListIndex] = useState(0);
 
@@ -41,7 +45,7 @@ const Main = () => {
 			if(snapshot.data()) {
 				setTaskData({lists:snapshot.data().lists});
 			} else {
-				updateDoc(taskData);
+				updateDoc(defaultData);
 			}
 		return () => {
 			console.log('unsubscribe');
