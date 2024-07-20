@@ -14,7 +14,7 @@ const Main = () => {
 	const [taskData, setTaskData] = useState<any>({
 		lists:[
 			{
-				name:' ',
+				name:'Todoリスト',
 				tasks:{
 					completed:[],
 					incomplete:[]
