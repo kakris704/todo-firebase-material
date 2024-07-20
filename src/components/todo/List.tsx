@@ -42,7 +42,7 @@ const TempTodoList = ({ Itemindex, selectIndex, setSelectIndex, text }: {Itemind
   )
 }
 
-const List = ({taskData, setTaskData, selectIndex, setSelectIndex}: any) => {
+const List = ({taskData, setTaskData, selectIndex, setSelectIndex, updateDoc}: any) => {
 
   const [isCreateListOpen, setCreateListOpen] = useState(false); // リストを作成するダイアログの条件
 
@@ -52,6 +52,7 @@ const List = ({taskData, setTaskData, selectIndex, setSelectIndex}: any) => {
         const removeData = {...prev};
         removeData.lists.splice(selectIndex, 1);
         if(selectIndex > 0) setSelectIndex((prev:number) => prev - 1)
+        updateDoc(removeData);
         return removeData;
       });
     }
@@ -86,7 +87,7 @@ const List = ({taskData, setTaskData, selectIndex, setSelectIndex}: any) => {
               }
             </div>
         </ListMUI>
-      <CreateList isOpen={isCreateListOpen} setOpen={setCreateListOpen} setTaskData={setTaskData}/>
+      <CreateList isOpen={isCreateListOpen} setOpen={setCreateListOpen} setTaskData={setTaskData} updateDoc={updateDoc}/>
     </div>
   )
 }

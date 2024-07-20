@@ -2,7 +2,7 @@ import { Button, Dialog, DialogContent, DialogTitle, Stack, TextField } from '@m
 import React, { useState } from 'react'
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 
-const CreateList = ({isOpen, setOpen, setTaskData}: {isOpen:boolean, setOpen:Function, setTaskData:Function}) => {
+const CreateList = ({isOpen, setOpen, setTaskData, updateDoc}: {isOpen:boolean, setOpen:Function, setTaskData:Function, updateDoc:Function}) => {
 
   const [listName, setListName] = useState("");
 
@@ -26,6 +26,7 @@ const CreateList = ({isOpen, setOpen, setTaskData}: {isOpen:boolean, setOpen:Fun
         }
         addData.lists.push(defaultData); // テンプレを追加
         setListName("");
+        updateDoc(addData);
         return addData;
       });
     }

@@ -6,7 +6,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import NotesIcon from '@mui/icons-material/Notes';
 
 // タスクのコンポーネント　
-const TempItem = ({handleClick, text, complete = false, index, setTaskData, selectIndex}: {handleClick:any, text:string, complete?:boolean, index:number, setTaskData:Function, selectIndex:number}) => {
+const TempItem = ({handleClick, text, complete = false, index, setTaskData, selectIndex, updateDoc}: {handleClick:any, text:string, complete?:boolean, index:number, setTaskData:Function, selectIndex:number, updateDoc:Function}) => {
   
   const handleChecked = () => {
     setTaskData((prev:any) => {
@@ -20,6 +20,7 @@ const TempItem = ({handleClick, text, complete = false, index, setTaskData, sele
         setData.lists[selectIndex].tasks.completed.push(moveData[0]);
       }
       console.log(setData);
+      updateDoc(setData);
       return setData;
     })
   }
@@ -77,7 +78,7 @@ const TaskMenu = ({anchorEl, open, handleDelete, handleClose}: {anchorEl:null | 
   )
 }
 
-const Todos = ({taskData, setTaskData, selectIndex}: {taskData:any, setTaskData:any, selectIndex:number}) => {
+const Todos = ({taskData, setTaskData, selectIndex, updateDoc}: {taskData:any, setTaskData:any, selectIndex:number, updateDoc:Function}) => {
   const [inputText, setInputText] = useState(""); // 入力中のテキスト
   const [checked, setChecked] = useState(false);
   const [isEditListOpen, setEditListOpen] = useState(false); // リスト名編集用ダイアログの条件
@@ -101,6 +102,7 @@ const Todos = ({taskData, setTaskData, selectIndex}: {taskData:any, setTaskData:
       } else if(!selectMenuIndex.compete) {
         setData.lists[selectIndex].tasks.incomplete.splice(selectMenuIndex.index, 1);
       }
+      updateDoc(setData);
       return setData;
     });
     setMenuIndex(null);
@@ -121,6 +123,7 @@ const Todos = ({taskData, setTaskData, selectIndex}: {taskData:any, setTaskData:
         const addData = {...prev};
         const defaultData = {text:inputText}
         addData.lists[selectIndex].tasks.incomplete.push(defaultData);
+        updateDoc(addData);
         return addData;
       })
       setInputText("");
@@ -143,19 +146,19 @@ const Todos = ({taskData, setTaskData, selectIndex}: {taskData:any, setTaskData:
           </Stack>
         </AppBar>
 
-        <div className="todoList-wrapper" style={{overflow:'auto', height:'90%'}}>
+        <div className="todoList-wrapper" style={{overflow:'auto'}}>
         <List sx={{zIndex:0}}>
           {(!tasks.incomplete[0] && !tasks.completed[0]) && <ListSubheader>タスクなし</ListSubheader> /* タスクが存在しない時 */}
           {tasks.incomplete[0] && <ListSubheader sx={{display:'flex',alignItems:'center'}}><NotesIcon sx={{mr:1}}/>未完了</ListSubheader>}
             {
               tasks.incomplete.map((data: any, index: number) => (
-                    <TempItem handleClick={handleClick} text={data.text} key={index} index={index} setTaskData={setTaskData} selectIndex={selectIndex}></TempItem>
+                    <TempItem handleClick={handleClick} text={data.text} key={index} index={index} setTaskData={setTaskData} selectIndex={selectIndex} updateDoc={updateDoc}></TempItem>
               ))
             }
           {tasks.completed[0] && <ListSubheader sx={{display:'flex',alignItems:'center'}}><CheckIcon sx={{mr:1}}/>完了済み</ListSubheader>}
             {
               tasks.completed.map((data: any, index:number) => (
-                    <TempItem handleClick={handleClick} text={data.text} complete key={index} index={index} setTaskData={setTaskData} selectIndex={selectIndex}></TempItem>
+                    <TempItem handleClick={handleClick} text={data.text} complete key={index} index={index} setTaskData={setTaskData} selectIndex={selectIndex} updateDoc={updateDoc}></TempItem>
               ))
             }
         </List>
@@ -183,7 +186,7 @@ const Todos = ({taskData, setTaskData, selectIndex}: {taskData:any, setTaskData:
         </div>
         
         <TaskMenu anchorEl={anchorEl} open={open} handleDelete={handleDelete} handleClose={handleClose}/>
-        <ListNameEdit isOpen={isEditListOpen} setOpen={setEditListOpen} setTaskData={setTaskData} selectIndex={selectIndex} taskData={taskData}/>    
+        <ListNameEdit isOpen={isEditListOpen} setOpen={setEditListOpen} setTaskData={setTaskData} selectIndex={selectIndex} taskData={taskData} updateDoc={updateDoc}/>    
     </div>
     
   )

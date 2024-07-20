@@ -21,6 +21,9 @@
         z-index: 2;
     }
 
+    .todoList-wrapper {
+        height: calc(92% - 70px);
+    }
     
 }
 
